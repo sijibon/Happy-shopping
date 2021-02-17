@@ -6,8 +6,7 @@ use Illuminate\Http\Request;
 use App\brands;
 class BrandsController extends Controller
 {
-
-    
+ 
         public function __construct()
         {
             $this->middleware('auth:admin');

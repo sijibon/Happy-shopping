@@ -40,6 +40,16 @@ Route::get('delete/category{del_id}', 'Admin\Category@Delete');
 Route::get('category/deactive{del_id}', 'Admin\Category@Deactive');
 Route::get('category/active{del_id}', 'Admin\Category@Active');
 
+
+// all sub-category routes are here
+Route::get('admin/sub-categoy','Admin\SubCategoryController@Create')->name('admin.sub-category');
+Route::post('admin/sub_categoy/store','Admin\SubCategoryController@Store')->name('store.sub-category');
+Route::get('edit/sub-category{id}', 'Admin\SubCategoryController@Edit');
+Route::post('sub_category/update{id}','Admin\SubCategoryController@Update');
+Route::get('delete/sub_category{del_id}', 'Admin\SubCategoryController@Delete');
+Route::get('sub_category/deactive{dec_id}', 'Admin\SubCategoryController@Deactive');
+Route::get('sub_category/active{act_id}', 'Admin\SubCategoryController@Active');
+
 // all brand routes are here
 Route::get('add/brand','brandsController@Create')->name('add.brand');
 Route::post('store/brand','brandsController@Store')->name('store.brand');

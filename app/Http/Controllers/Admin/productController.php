@@ -19,7 +19,7 @@ class productController extends Controller
 
     //add products
      public function Create(){
-         $category = Categories::get()->orderBy('id', 'DESC');
+         $category = Categories::orderBy('id', 'DESC')->get();
          $brand = brands::get();
         return view('admin.product.add_product', compact('category', 'brand'));
    }

@@ -95,7 +95,7 @@
                     <h5>Cart Total</h5>
                     <ul>
                     <li>Subtotal <span>${{ $total}}</span></li>
-                        <li>Total <span>$454.98</span></li>
+                        <li>Total <span>${{ $total}}</span></li>
                     </ul>
                     <a href="#" class="primary-btn">PROCEED TO CHECKOUT</a>
                 </div>

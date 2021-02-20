@@ -11,11 +11,11 @@
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
-    <link href="{{asset('frontend/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.css">
     <!-- Css Styles -->
     <link rel="stylesheet" href="{{asset  ('frontend')}}/css/bootstrap.min.css" type="text/css">
-    <link rel="stylesheet" href="{{ asset ('frontend')}}/ css/font-awesome.min.css" type="text/css">
+    <link rel="stylesheet" href="{{ asset ('frontend')}}/css/font-awesome.min.css" type="text/css">
     <link rel="stylesheet" href="{{ asset ('frontend')}}/css/elegant-icons.css" type="text/css">
     <link rel="stylesheet" href="{{ asset ('frontend')}}/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="{{ asset ('frontend')}}/css/jquery-ui.min.css" type="text/css">
@@ -165,7 +165,8 @@
                         <ul>
                         <li>
                            <a href="{{url('cart')}}">
-                                <button type="button" class="btn btn-primary">Cart <span class="badge badge-light">{{$quantity}}</span></button>
+                                <span class="badge badge-light">{{$quantity}}</span>
+                                <i class="fa fa-shopping-cart"></i>
                             </a>
                         </li>
                         </ul>
@@ -191,7 +192,7 @@
                             <span>All Category</span>
                         </div>
                         @php
-                        $catgegories = App\Categories::where('status',1)->get();
+                        $catgegories = App\Categories::where(['status'=>1])->get();
                         @endphp
                         <ul> 
                         @foreach ($catgegories as $item)
@@ -243,8 +244,6 @@
                             <a href="./index.html"><img src="{{ asset ('frontend')}}/img/logo.png" alt=""></a>
                         </div>
                         <ul>
-                            <li>Address: 60-49 Road 11378 New York</li>
-                            <li>Phone: +65 11.188.888</li>
                             <li>Email: hello@colorlib.com</li>
                         </ul>
                     </div>
@@ -291,7 +290,7 @@
                 <div class="col-lg-12">
                     <div class="footer__copyright">
                         <div class="footer__copyright__text"><p><!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-  Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+  Copyright &copy;<script>document.write(new Date().getFullYear());</script> Expert IT Solutions <i class="fa fa-heart" aria-hidden="true"></i> by <a style="color:black" href="https://www.expertitbd.com/" target="_blank">Expert IT Solutions</a>
   <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. --></p></div>
                         <div class="footer__copyright__payment"><img src="{{ asset ('frontend')}}/img/payment-item.png" alt=""></div>
                     </div>

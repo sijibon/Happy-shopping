@@ -97,8 +97,8 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__left">
                             <ul>
-                                <li><i class="fa fa-envelope"></i> hello@colorlib.com</li>
-                                <li>Free Shipping for all Order of $99</li>
+                                <li><i class="fa fa-envelope"></i>bdbuy@martweb.com</li>
+                                <li>Buy one get one free</li>
                             </ul>
                         </div>
                     </div>
@@ -108,14 +108,13 @@
                                 <a href="#"><i class="fa fa-facebook"></i></a>
                                 <a href="#"><i class="fa fa-twitter"></i></a>
                                 <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
                             </div>
                             <div class="header__top__right__language">
                                 <img src="{{ asset ('frontend')}}/img/language.png" alt="">
                                 <div>English</div>
                                 <span class="arrow_carrot-down"></span>
                                 <ul>
-                                    <li><a href="#">Spanis</a></li>
+                                    <li><a href="#">বাংলা</a></li>
                                     <li><a href="#">English</a></li>
                                 </ul>
                             </div>
@@ -165,8 +164,8 @@
                         <ul>
                         <li>
                            <a href="{{url('cart')}}">
-                                <span class="badge badge-light">{{$quantity}}</span>
-                                <i class="fa fa-shopping-cart"></i>
+                                <span style="width:20px" class="badge badge-light">{{$quantity}}</span>
+                                <i class="fa fa-shopping-cart m-2"></i>
                             </a>
                         </li>
                         </ul>
@@ -205,10 +204,6 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                                <div class="hero__search__categories">
-                                    All Categories
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
                                 <input type="text" placeholder="What do yo u need?">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>

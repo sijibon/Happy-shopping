@@ -19,8 +19,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', 'frontendController@index');
 
-
-
 Auth::routes();
 
 // =================All auth routes are here====================
@@ -85,3 +83,21 @@ Route::get('cart','Admin\CartController@cartPage');
 Route::get('remove/cart{id}','Admin\CartController@Destroy');
 Route::post('quantity/update{id}','Admin\CartController@quantity_update');
 
+
+//slider routes are here
+Route::get('image_slider','SlidersController@imageUpload')->name('image.upload');
+Route::post('image_slider_upload','SlidersController@imageUploadPost')->name('upload.image.post');
+Route::get('edit/slider_image{id}','SlidersController@edit_show');
+Route::post('update/slider_image{id}','SlidersController@update_show');
+Route::get('delete/slider_image{id}','SlidersController@delete');
+Route::get('slider_image/deactive{id}','SlidersController@deactive');
+Route::get('slider_image/active{id}','SlidersController@active');
+
+//slider routes are here
+Route::get('banner_image','BannerController@BannerUpload')->name('banner.upload');
+Route::post('image_banner_upload','BannerController@imageUploadBanner')->name('upload.image.banner');
+Route::get('edit/banner_image{id}','BannerController@edit_image');
+Route::post('update/banner_image{id}','BannerController@update_image');
+Route::get('delete/banner_image{id}','BannerController@delete');
+Route::get('banner_image/deactive{id}','BannerController@deactive');
+Route::get('banner_image/active{id}','BannerController@active');

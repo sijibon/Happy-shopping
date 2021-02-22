@@ -13,7 +13,7 @@ class CartController extends Controller
            Carts::where('product_id',$id)->where('user_ip', $request->ip())->increment('product_quantity');
            $notification = array(
             'message' => 'Product added on cart successfully!',
-            'alert-type' => 'success'
+            'alert-type' => 'info'
         );
         return Redirect()->back()->with($notification);
        }else{
@@ -44,7 +44,7 @@ class CartController extends Controller
             Carts::where('id', $id)->where('user_ip', request()->ip())->delete();
 
             $notification = array(
-                'message' => ' cart Deleted successfully!',
+                'message' => 'cart Deleted successfully!',
                 'alert-type' => 'success'
             );
             return Redirect()->back()->with($notification);

@@ -1,13 +1,31 @@
 @extends('layouts.frontend_layouts')
 @section('header_content')
-<div class="hero__item set-bg" data-setbg="{{ asset ('frontend')}}/img/hero/banner.jpg">
-    <div class="hero__text">
-        <span>FRUIT FRESH</span>
-        <h2>Vegetable <br />100% Organic</h2>
-        <p>Free Pickup and Delivery Available</p>
-        <a href="#" class="primary-btn">SHOP NOW</a>
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+    <ol class="carousel-indicators">
+      <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+      <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+    </ol>
+    <div class="carousel-inner">
+        @foreach ($img_slide as $key => $slider)  
+        <div class="carousel-item {{$key == 0 ? 'active' : '' }}">              
+            <img style="height: 400px; width:400px" class="d-block w-100" src="{{ url ($slider->slide_image)}}">
+            <div class="carousel-caption d-none d-md-block">
+            </div>
+      </div>
+      @endforeach
     </div>
-</div>
+
+    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+      <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+      <span class="sr-only">Next</span>
+    </a>
+  </div>
+
 @endsection
 
 @section('content')
@@ -56,48 +74,45 @@
                 @endphp
 
                 @foreach ($products as $product)  
-                <div class="col-lg-3 col-md-4 col-sm-6 mix filter{{$item->id}}">
-                        <div class="featured__item">
-                            <div class="featured__item__pic set-bg" data-setbg="{{ asset ($product->product_image1)}}">
-                                <ul class="featured__item__pic__hover">
-                                <form action="{{url('add/to-cart'.$product->id)}}" method="POST">
-                                    @csrf
-                                  <input type="hidden" name="product_price" value="{{ $product->product_price }}">
-                                    <a type="submit" name="submit"><i class="fa fa-shopping-cart"></i></a>
-                                </form>
-                                </ul>
+                    <div class="col-md-3 mt-2 mix filter{{$item->id}}">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="card-im bg-imageg-actions" data-setbg="{{ asset ($product->product_image1)}}"><img src="{{ asset ($product->product_image1)}}" alt=""> </div>
                             </div>
-                            <div class="featured__item__text">
-                            <h6><a href="#">{{$product->product_name}}</a></h6>
-                             <h5>${{$product->product_price}}</h5>
+                            <div class="card-body bg-light text-center">
+                                <div class="mb-2">
+                                    <h6 class="font-weight-semibold mb-2"><h5 href="#" class="text-default mb-2" data-abc="true">{{$product->product_name}}</h5></h6>
+                                </div>
+                                <p class="mb-0 font-weight-semibold">${{$product->product_price}}</p>
+                               <form action="{{url('add/to-cart'.$product->id)}}" method="POST">
+                                @csrf
+                              <input type="hidden" name="product_price" value="{{ $product->product_price }}">
+                              <button type="submit" name="submit" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                            </form>    
                             </div>
                         </div>
+                    </div> 
+            @endforeach
+            @endforeach                
+        </div>
+    </div>
+</section>
+    <!-- Featured Section End -->
+
+    <!-- Banner Begin -->
+    <div class="banner">
+        <div class="container">
+            <div class="row">
+            @foreach($banner_img as $banner)
+                <div class="col-lg-6 col-md-6 col-sm-6">
+                    <div class="banner__pic">
+                        <img style="height: 200px;width:500px" src="{{url($banner->banner_image)}}" alt="">
                     </div>
-                    @endforeach
-                    @endforeach
-                
-                </div>
-            </div>
-        </section>
-        <!-- Featured Section End -->
-    
-        <!-- Banner Begin -->
-        <div class="banner">
-            <div class="container">
-                <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="banner__pic">
-                            <img src="{{ asset ('frontend')}}/img/banner/banner-1.jpg" alt="">
-                        </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6">
-                        <div class="banner__pic">
-                            <img src="{{ asset ('frontend')}}/img/banner/banner-2.jpg" alt="Banner2">
-                        </div>
-                    </div>
-                </div>
+                </div>                 
+                @endforeach
             </div>
         </div>
-        <br>
-        <!-- Banner End -->
+    </div>
+    <br>
+<!-- Banner End -->
 @endsection

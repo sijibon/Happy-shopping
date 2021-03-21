@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class coupons extends Model
+class Currency extends Model
 {
     protected $fillable = [
-        'coupon_name','discount','status'
+        'currency_icon'
     ];
 }

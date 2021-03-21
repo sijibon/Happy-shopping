@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\SslCommerzPaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,6 +38,7 @@ Route::post('category/update{id}','Admin\Category@Update');
 Route::get('delete/category{del_id}', 'Admin\Category@Delete');
 Route::get('category/deactive{del_id}', 'Admin\Category@Deactive');
 Route::get('category/active{del_id}', 'Admin\Category@Active');
+Route::get('get_subcategory', 'Admin\Category@get_subcategory')->name('get_subcategory');
 
 
 // all sub-category routes are here
@@ -67,13 +69,14 @@ Route::post('update/image{id}','Admin\productController@updateImage');
 Route::get('delete/product{id}','Admin\productController@deleteProduct');
 Route::get('deactive/product{id}','Admin\productController@deactiveProduct');
 Route::get('active/product{id}','Admin\productController@activeProduct');
+Route::get('product-details/{id}','Admin\productController@activeProduct');
 
 //coupons
-Route::get('add/coupons','Admin\couponController@index')->name('add.coupon');
+Route::get('add/coupons','Admin\couponController@Create')->name('add.coupon');
 Route::post('store/coupons','Admin\couponController@Store')->name('store.coupon');
 Route::get('edit/coupon{id}','Admin\couponController@Edit');
 Route::post('update/coupon{id}','Admin\couponController@Update');
-Route::get('delete/coupon{id}','Admin\couponController@Delete');
+Route::get('delete/coupon/{id}','Admin\couponController@Delete');
 Route::get('deactive/coupon{id}', 'Admin\couponController@Deactive');
 Route::get('active/coupon{id}', 'Admin\couponController@Active');
 
@@ -101,3 +104,32 @@ Route::post('update/banner_image{id}','BannerController@update_image');
 Route::get('delete/banner_image{id}','BannerController@delete');
 Route::get('banner_image/deactive{id}','BannerController@deactive');
 Route::get('banner_image/active{id}','BannerController@active');
+
+
+//currency routes
+Route::get('currency/add','CurrencyController@CreateCurrency')->name('create_currency');
+Route::post('post/currency','CurrencyController@PostCurrency')->name('post_currency');
+Route::get('delete/coupon{id}','CurrencyController@delete');
+Route::get('product/category', 'frontendController@show_category');
+
+//category products
+Route::get('subcategory/{id}', 'frontendController@sub_category');
+Route::get('product-details/{id}', 'frontendController@product_details');
+
+
+
+
+
+// SSLCOMMERZ Start
+Route::get('/example1', [SslCommerzPaymentController::class, 'exampleEasyCheckout']);
+Route::get('/example2', [SslCommerzPaymentController::class, 'exampleHostedCheckout']);
+
+Route::post('/pay', [SslCommerzPaymentController::class, 'index']);
+Route::post('/pay-via-ajax', [SslCommerzPaymentController::class, 'payViaAjax']);
+
+Route::post('/success', [SslCommerzPaymentController::class, 'success']);
+Route::post('/fail', [SslCommerzPaymentController::class, 'fail']);
+Route::post('/cancel', [SslCommerzPaymentController::class, 'cancel']);
+
+Route::post('/ipn', [SslCommerzPaymentController::class, 'ipn']);
+//SSLCOMMERZ END

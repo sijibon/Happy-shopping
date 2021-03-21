@@ -31,6 +31,10 @@
                             <input type="text" name="coupon_name" class="form-control" id="name" value="{{$editCoupon->coupon_name}}">
                               </div>
                               <div class="form-group m-2">
+                                <label for="inputEmail4">Coupon Discount</label>
+                                <input type="text" name="discount" value="{{$editCoupon->discount}}" class="form-control" id="name" placeholder="coupon discount">
+                              </div>
+                              <div class="form-group m-2">
                               </div>
                             <div class="row justify-content-center mb-2" >
                                 <button id="addBtn" class="btn btn-primary ">Update Coupon</button>

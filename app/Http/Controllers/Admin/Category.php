@@ -26,9 +26,6 @@ class Category extends Controller
             'category_name' => 'required|unique:categories|max:255',
         ]);
 
-        // $data = new Categories;
-        // $data->category_name = $request->category_name;
-        // $data->save();
         
         $data = array();
         $data['category_name'] = $request->category_name;
@@ -79,5 +76,23 @@ class Category extends Controller
     public function Active($cat_id){
         Categories::find($cat_id)->update(['status' => 1 ]);
         return Redirect()->route('admin.cateogry');
+    }
+
+    public function get_subcategory(REQUEST $request)
+    { 
+        $subcategory = DB::table('sub_categories')
+        ->where('category_id',$request->cat_id)
+        ->orderBy('sub_category_name','asc')
+        ->get();
+
+        $html = '';
+        $html .= '<option value="#">Choose One</option>';
+
+        foreach($subcategory as $key => $value){
+            $html .= '<option value="'.$value->id.'">'.$value->sub_category_name.'</option>';
+        }
+
+        return $html;
+
     }
  }

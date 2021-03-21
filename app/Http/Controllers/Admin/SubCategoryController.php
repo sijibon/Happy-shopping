@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 use App\sub_categories;
+use App\categories;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,8 @@ class SubCategoryController extends Controller
     public function Create()
     {
         $data = sub_categories::orderBy('id', 'DESC')->paginate(8);
-        return view('admin.sub_category.sub_category', compact('data'));
+        $category = categories::all();
+        return view('admin.sub_category.sub_category', compact('data','category'));
     }
 
     public function Store(Request $request)
@@ -26,6 +28,7 @@ class SubCategoryController extends Controller
         
         $sub_category = new sub_categories;
         $sub_category->sub_category_name = $request->sub_category_name;
+        $sub_category->category_id = $request->category_id;
         $sub_category->save();
  
         $notification = array(
@@ -82,4 +85,5 @@ class SubCategoryController extends Controller
         return Redirect()->route('admin.sub-category');
 
       }
+
 }

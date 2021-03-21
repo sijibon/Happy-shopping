@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Products;
 use App\Categories;
 use App\brands;
+use App\Currency;
 use Image;
 use Carbon\Carbon;
 use DB;
@@ -21,7 +22,8 @@ class productController extends Controller
      public function Create(){
          $category = Categories::orderBy('id', 'DESC')->get();
          $brand = brands::get();
-        return view('admin.product.add_product', compact('category', 'brand'));
+         $currency = Currency::get();
+        return view('admin.product.add_product', compact('category', 'brand','currency'));
    }
 
         public function Store(Request $request){
@@ -69,6 +71,7 @@ class productController extends Controller
            Products::insert([
             'category_id' => $request->category_id,
             'brand_id' => $request->brand_id,
+            'currency_id' => $request->price_currency,
             'product_name' =>$request->product_name,
             'product_slug' => strtolower(str_replace(' ','-',$request->product_name)),
             'product_code' =>$request->product_code,
@@ -81,7 +84,7 @@ class productController extends Controller
             'product_image3' =>$image_url3,
             'created_at' => Carbon::now(),
          ]);
-
+         
          $notification = array(
             'message' => 'Product added successfully!',
             'alert-type' => 'success'
@@ -90,7 +93,11 @@ class productController extends Controller
      }
 
      public function ManageProduct(){
-        $manageProduct = Products::latest()->get();
+        $manageProduct = DB::table('products')
+        ->join('categories', 'products.category_id', '=', 'categories.id')
+        ->join('brands', 'products.brand_id', '=', 'brands.id')
+        ->select('products.*', 'categories.category_name', 'brands.brand_name')
+        ->get();
         return view('admin.product.manage_product', compact('manageProduct'));
      }
 
@@ -133,7 +140,7 @@ class productController extends Controller
 
          if($request->has('product_image1')){
               unlink($old_image1);
-             //image1
+             //image1r
              $image1 = $request->product_image1;
              $image_gen = hexdec(uniqid()).'.'.$image1->getClientOriginalExtension();
              Image::make($image1)->resize(270,270)->save('frontend/img/product/upload/'.$image_gen);

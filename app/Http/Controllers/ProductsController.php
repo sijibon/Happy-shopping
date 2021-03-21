@@ -13,9 +13,9 @@ class ProductsController extends Controller
         $this->middleware('auth:admin');
     }
 
-    //add products
-     public function Create(){
-         $category = Categories::get();
-        return view('admin.product.add_product');
-   }
+//     //add products
+//      public function Create(){
+//          $category = Categories::get();
+//         return view('admin.product.add_product');
+//    }
 }

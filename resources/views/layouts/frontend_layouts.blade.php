@@ -7,7 +7,7 @@
     <meta name="keywords" content="Ogani, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Sunno Shopping</title>
+    <title>BD Buy Mart</title>
 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@200;300;400;600;900&display=swap" rel="stylesheet">
@@ -22,6 +22,13 @@
     <link rel="stylesheet" href="{{ asset ('frontend')}}/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="{{ asset ('frontend')}}/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="{{ asset ('frontend')}}/css/style.css" type="text/css">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+
+    <style>
+        .ui-menu { width: 262px; }
+    </style>
+
 </head>
 
 <body>
@@ -34,7 +41,7 @@
     <div class="humberger__menu__overlay"></div>
     <div class="humberger__menu__wrapper">
         <div class="humberger__menu__logo">
-            <a href="#"><img src="img/logo.png" alt=""></a>
+            <a href="{{url('/')}}"><img src="img/logo.png" alt=""></a>
         </div>
         <div class="humberger__menu__cart">
             <ul>
@@ -130,7 +137,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="{{ asset ('frontend')}}/img/logo.png" alt=""></a>
+                        <a href="{{url('/')}}"><img src="{{ asset ('frontend')}}/img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -193,9 +200,20 @@
                         @php
                         $catgegories = App\Categories::where(['status'=>1])->get();
                         @endphp
-                        <ul> 
+                        <ul id="menu"> 
                         @foreach ($catgegories as $item)
-                         <li><a href="#">{{$item->category_name}}</a></li> 
+                         <li><a href="{{ url('product/category/'.$item->id)}}">{{$item->category_name}}</a> 
+                          @php
+                            $show_category =App\sub_categories::where('category_id',$item->id)->get();
+                          @endphp
+                               <ul>
+                               @forelse ($show_category as $sub_category)
+                                    <li><a href="{{url('subcategory/'.$sub_category->id)}}">{{ $sub_category->sub_category_name }}</a></li>
+                                        @empty
+                                            {{-- <li style="display:none"><a href=""></a></li> --}}
+                                        @endforelse
+                               </ul>
+                         </li> 
                         @endforeach  
                     </ul>
                     </div>
@@ -204,7 +222,7 @@
                     <div class="hero__search">
                         <div class="hero__search__form">
                             <form action="#">
-                                <input type="text" placeholder="What do yo u need?">
+                                <input type="text" placeholder="What do you need?">
                                 <button type="submit" class="site-btn">SEARCH</button>
                             </form>
                         </div>
@@ -296,6 +314,7 @@
     <!-- Footer Section End -->
 
     <!-- Js Plugins -->
+
     <script src="{{ asset ('frontend')}}/js/jquery-3.3.1.min.js"></script>
     <script src="{{ asset ('frontend')}}/js/bootstrap.min.js"></script>
     <script src="{{ asset ('frontend')}}/js/jquery.nice-select.min.js"></script>
@@ -305,9 +324,13 @@
     <script src="{{ asset ('frontend')}}/js/owl.carousel.min.js"></script>
     <script src="{{ asset ('frontend')}}/js/main.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/2.1.4/toastr.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
     
     {{-- source code of toster============ --}}
   
+
   <script>
     
     @if(Session::has('message'))
@@ -331,8 +354,12 @@
     }
   @endif  
   
+  </script> 
+  <script>
+     $(function(){
+         $("#menu").menu();
+         });
   </script>
-
 </body>
 
 </html>

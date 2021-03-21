@@ -43,21 +43,28 @@
                     @enderror
                   </div>
                 </div><!-- col-4 -->
+
                 <div class="col-lg-4">
                   <div class="form-group mg-b-10-force">
-                    <label class="form-control-label">Product Quantity </label>
-                    <input class="form-control" type="number"   name="product_quantity"  value="{{ old('product_quantity')}}" placeholder="  product quantity">
-                    @error('product_quantity')
+                    <label class="form-control-label">Price Currency</label>
+                    <select class="form-control select2" value="{{ old('currency_id')}}" name="price_currency" data-placeholder="Choose country">
+                      <option label="Choose Currency" disabled></option>
+                        @foreach ($currency as $currency_icon) 
+                       <option value="{{$currency_icon->id}}">{{$currency_icon->currency_icon}}</option>
+                        @endforeach
+                  </select>
+                    @error('price_currency')
                     <strong class="text-danger">{{ $message }}</strong>
                     @enderror
                   </div>
                 </div>
+
                   {{-- drop-down --}}
                   <div class="col-lg-4">
                     <div class="form-group mg-b-10-force">
                       <label class="form-control-label">Category </label>   
-                         <select class="form-control select2" value="{{ old('category_id')}}" name="category_id" data-placeholder="Choose country">
-                          <option label="Choose Category" active></option>
+                         <select id="category" class="form-control select2" value="{{old('category_id')}}" name="category_id" data-placeholder="Choose country">
+                          <option label="Choose Category" disabled></option>
                             @foreach ($category as $category_items) 
                            <option value="{{$category_items->id}}">{{$category_items->category_name}}</option>
                             @endforeach
@@ -67,13 +74,23 @@
                       @enderror
                     </div>
                   </div><!-- col-4 -->
+                                 
+                  <div class="col-lg-4">
+                    <div class="form-group mg-b-10-force">
+                      <label class="form-control-label">Subcategory </label>   
+                         <select id="sub_category" class="form-control select2" value="" name="subcategory" data-placeholder="Choose country">
+                          <option label="Choose Category" disabled></option>    
+                           
+                      </select>
+                    </div>
+                  </div><!-- col-4 -->
 
                  {{-- drop-down --}}
                   <div class="col-lg-4">
                     <div class="form-group mg-b-10-force">
                       <label class="form-control-label">Brand</label>
                       <select class="form-control select2" value="{{ old('brand_id')}}" name="brand_id" data-placeholder="Choose country">
-                        <option label="Choose Brand"></option>
+                        <option label="Choose Brand" disabled></option>
                           @foreach ($brand as $brand_item)
                          <option value="{{$brand_item->id}}">{{$brand_item->brand_name}}</option> 
                           @endforeach
@@ -83,6 +100,16 @@
                       @enderror
                     </div>
                   </div><!-- col-4 -->
+                 
+                <div class="col-lg-4">
+                  <div class="form-group mg-b-10-force">
+                    <label class="form-control-label">Product Quantity </label>
+                    <input class="form-control" type="number"   name="product_quantity"  value="{{ old('product_quantity')}}" placeholder="  product quantity">
+                    @error('product_quantity')
+                    <strong class="text-danger">{{ $message }}</strong>
+                    @enderror
+                  </div>
+                </div>
 
                   <div class="col-lg-4">
                     <div class="form-group">
@@ -141,5 +168,37 @@
         </div>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
+<script type="text/javascript">
+  
+  // if(jQuery){
+  //   console.log("Loaded");
+  // }else{
+  //   onsole.log("Not Loaded");
+  // }
+
+  $(document).ready(function () {
+
+    $('#category').on('change',function() {
+      var cat_id = $(this).val();
+      // alert(cat_id);
+
+      $.ajax({
+        url:'{{ route("get_subcategory") }}',
+        data:{cat_id:cat_id},
+        success:function(data){
+          $('#sub_category').html(data);
+          console.log('Successfully Got Subcategory')
+        },
+        error:function(){
+          console.log('Unsuccessfull get Subcategory')
+        }
+      })
+
+      })
+
+    });
+
+  </script>
 @endsection

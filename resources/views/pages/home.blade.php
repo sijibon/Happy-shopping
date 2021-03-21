@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="row">
                     <div class="categories__slider owl-carousel">
-                        @foreach ($product as $item)
+                        @foreach ($products as $item)
                         <div class="col-lg-3">
                             <div class="categories__item set-bg" data-setbg="{{ asset ($item->product_image1)}}">
                             <h5><a href="#">{{$item->product_name}}</a></h5>
@@ -70,24 +70,30 @@
 
                 @foreach ($category as $item)
                 @php
-                   $products = App\Products::where( 'category_id', $item->id)->get(); 
+                   $products = DB::table('products')
+                  ->join('currencies','products.currency_id','=','currencies.id')
+                  ->select('currencies.currency_icon','products.*')->where('category_id', $item->id)->where(['product_status'=>1])->get();
                 @endphp
 
                 @foreach ($products as $product)  
-                    <div class="col-md-3 mt-2 mix filter{{$item->id}}">
+                    <div class="col-md-3 mt-2 mb-2 mix filter{{$item->id}}">
                         <div class="card">
                             <div class="card-body">
-                                <div class="card-im bg-imageg-actions" data-setbg="{{ asset ($product->product_image1)}}"><img src="{{ asset ($product->product_image1)}}" alt=""> </div>
+                                <div class="card-im bg-imageg-actions" data-setbg="{{ asset ($product->product_image1)}}"><img src="{{ asset ($product->product_image1)}}" alt=""></div>
                             </div>
                             <div class="card-body bg-light text-center">
                                 <div class="mb-2">
                                     <h6 class="font-weight-semibold mb-2"><h5 href="#" class="text-default mb-2" data-abc="true">{{$product->product_name}}</h5></h6>
                                 </div>
-                                <p class="mb-0 font-weight-semibold">${{$product->product_price}}</p>
+                               <div class="d-flex justify-content-center">
+                                    <p class="m-3 font-weight-semibold">{{$product->currency_icon}}{{$product->product_price}}</p>
+                                    <p class="m-3 font-weight-semibold">{{$product->currency_icon}} <del>200</del></p>
+                               </div>
+                                <a href="{{ url('product-details/'.$product->id)}}" name="submit" class="btn bg-details"><i class="fa fa-info-circle mr-2"></i> Details</a>
                                <form action="{{url('add/to-cart'.$product->id)}}" method="POST">
                                 @csrf
                               <input type="hidden" name="product_price" value="{{ $product->product_price }}">
-                              <button type="submit" name="submit" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>
+                                <button type="submit" name="submit" class="btn bg-cart"><i class="fa fa-cart-plus mr-2"></i> Add to cart</button>                            
                             </form>    
                             </div>
                         </div>

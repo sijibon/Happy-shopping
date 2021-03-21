@@ -78,11 +78,22 @@
                         <div class="card-body">
                         <form action="{{ route ('store.sub-category')}}" method="post">
                           @csrf
+                          <div class="form-group m-2">
+                            <label class="form-control-label">Category </label>   
+                                <select id="category" class="form-control select2" value="{{old('category_id')}}" name="category_id" data-placeholder="Choose country">
+                                <option label="Choose Category" disabled></option>
+                                  @foreach ($category as $category_items) 
+                                  <option value="{{$category_items->id}}">{{$category_items->category_name}}</option>
+                                  @endforeach
+                            </select>
+                              @error('category_id')
+                              <strong class="text-danger">{{ $message }}</strong>
+                              @enderror
+                          </div>
+
                             <div class="form-group m-2">
                                 <label for="inputEmail4">Category Name</label>
                                 <input type="text" name="sub_category_name" class="form-control" id="name" placeholder="Enter Category Name">
-                              </div>
-                              <div class="form-group m-2">
                               </div>
                             <div class="row justify-content-center mb-2" >
                                 <button id="addBtn" class="btn btn-primary ">Add Sub Category</button>

@@ -20,6 +20,7 @@
                     <tr>
                       <th scope="col">#</th>
                       <th scope="col">Coupon Name</th>
+                      <th scope="col">Coupon Discount</th>
                       <th scope="col">Active Status</th>
                       <th scope="col">Action</th>
                     </tr>
@@ -30,6 +31,7 @@
                     <tr>
                     <th scope="col">{{$row->id}}</th>
                     <th scope="col">{{$row->coupon_name}}</th>
+                    <th scope="col">{{$row->discount}}%</th>
                     <th scope="col">
                     @if ($row->status == 1 )
                         <span class="badge badge-success">Active</span>
@@ -39,7 +41,7 @@
                     </th>
                       <th scope="col">
                       <a href="{{ url('edit/coupon'.$row->id)}}" class="btn btn-sm btn-primary"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                      <a href="{{ url('delete/coupon'.$row->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
+                      <a href="{{ url('delete/coupon/'.$row->id)}}" class="btn btn-sm btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i></a>
                     @if ($row->status ==1)
                       <a href="{{ url('deactive/coupon'.$row->id)}}" class="btn btn-sm btn-warning"><i class="fa fa-times" aria-hidden="true"></i></a>
                       @else 
@@ -77,6 +79,10 @@
                             <div class="form-group m-2">
                                 <label for="inputEmail4">Coupon Name</label>
                                 <input type="text" name="coupon_name" class="form-control" id="name" placeholder="coupon name">
+                              </div>
+                              <div class="form-group m-2">
+                                <label for="inputEmail4">Coupon Discount</label>
+                                <input type="text" name="discount" class="form-control" id="name" placeholder="coupon discount">
                               </div>
                               <div class="form-group m-2">
                               </div>
